@@ -24,7 +24,8 @@ $password = "Shell111";
 // If you change this value, the ESP32 sketch needs to match
 $api_key_value = "tPmAT5Ab3j7F9";
 
-$api_key= $cardID = "";
+$api_key = "";
+$cardID = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $api_key = test_input($_POST["api_key"]);
@@ -65,3 +66,4 @@ function test_input($data) {
     $data = htmlspecialchars($data);
     return $data;
 }
+?>
