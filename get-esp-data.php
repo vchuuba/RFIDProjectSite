@@ -26,14 +26,12 @@
         //     $board = test_input($_GET["board"]);
         //     $result = getAllOutputStates($id);
 
-        $sql = "SELECT id, cardID FROM productList WHERE id=26";
-        $result = $conn->query($sql);
-        while ($row = $result->fetch_assoc()) {
-        $rows[$row["id"]] = $row["cardID"];
-        }
-        else {
-            echo "Invalid HTTP request.";
-        }
+            $sql = "SELECT id, cardID FROM productList WHERE id=26";
+            $result = $conn->query($sql);
+            while ($row = $result->fetch_assoc()) {
+            $rows[$row["id"]] = $row["cardID"];
+            }
+            echo json_encode($rows);
         $conn->close();
     }
 ?>
