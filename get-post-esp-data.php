@@ -1,7 +1,7 @@
 <?php
     $servername = "localhost";
     // Your Database name
-    $dbname = "esp_data";
+    $dbname = "RFID";
     // Your Database user
     $username = "testUser";
     // Your Database user password
