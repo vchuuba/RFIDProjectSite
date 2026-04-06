@@ -9,6 +9,10 @@
 
     $keyword = $cardID = $id = "";
 
+    //read body
+    $raw = file_get_contents('php://input');
+    $data = json_decode($raw, true);
+
         // Create connection
     $conn = new mysqli($servername, $username, $password, $dbname);
         // Check connection
@@ -35,7 +39,7 @@
             $conn->close();
         } else if ($keyword == "MFRC522POST") { // mfrc522 post
             $cardID = test_input($_POST["cardID"]);
-            $sql = "update productList set cardID = '" . $cardID . "' where id = 26";
+            $sql = "update clientID set tag = '" . $data['cardID'] . "' where username = realtest";
             if ($conn->query($sql) === TRUE) {
                 echo "Record updated successfully";
             } else {echo "Error: " . $sql . "<br>" . $conn->error;}
