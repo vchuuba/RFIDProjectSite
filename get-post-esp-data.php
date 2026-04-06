@@ -29,7 +29,7 @@
     }
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        $keyword = test_input($_POST["keyword"]);
+        $keyword = test_input($data["keyword"]); // replace with $_POST["keyword"] for url encoding
         if($keyword == "tPmAT5Ab3j7F9") { // test with url encoding
             $cardID = test_input($_POST["cardID"]);
             $sql = "update clientID set tag = '" . $cardID . "' where id = 26";
