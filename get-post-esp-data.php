@@ -22,7 +22,7 @@
         $sql = "SELECT id, cardID FROM productList WHERE id=26";
         $result = $conn->query($sql);
         while ($row = $result->fetch_assoc()) {
-        $rows[$row["id"]] = $row["cardID"];
+            $rows[$row["id"]] = $row["cardID"];
         }
         echo json_encode($rows);
         $conn->close();
@@ -39,7 +39,7 @@
             $conn->close();
         } else if ($keyword == "MFRC522POST") { // mfrc522 post
             $cardID = test_input($_POST["cardID"]);
-            $sql = "update clientID set tag = '" . $data['cardID'] . "' where username = realtest";
+            $sql = "update clientID set tag = '" . $data["cardID"] . "' where username = realtest";
             if ($conn->query($sql) === TRUE) {
                 echo "Record updated successfully";
             } else {echo "Error: " . $sql . "<br>" . $conn->error;}
