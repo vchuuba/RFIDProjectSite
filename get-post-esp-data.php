@@ -30,21 +30,20 @@
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $keyword = test_input($_POST["keyword"]);
-        if($keyword == "tPmAT5Ab3j7F9") { // test
+        if($keyword == "tPmAT5Ab3j7F9") { // test with url encoding
             $cardID = test_input($_POST["cardID"]);
-            $sql = "update productList set cardID = '" . $cardID . "' where id = 26";
+            $sql = "update clientID set tag = '" . $cardID . "' where id = 26";
             if ($conn->query($sql) === TRUE) {
                 echo "Record updated successfully";
             } else {echo "Error: " . $sql . "<br>" . $conn->error;}
             $conn->close();
-        } else if ($keyword == "MFRC522POST") { // mfrc522 post
-            $cardID = test_input($_POST["cardID"]);
+        } else if ($data["keyword"] == "MFRC522POST") { // mfrc522 post with json encoding
             $sql = "update clientID set tag = '" . $data["cardID"] . "' where username = realtest";
             if ($conn->query($sql) === TRUE) {
                 echo "Record updated successfully";
-            } else {echo "Error: " . $sql . "<br>" . $conn->error;}
+            } else {echo "Error: " . $sql . "<br>" . $conn->error;} 
             $conn->close();
-        } else {echo "Wrong Keyword provided.";}
+        } else {echo "Wrong Keyword provided.";} // error
     } else {echo "No data posted with HTTP POST.";}
 
     function test_input($data) {
