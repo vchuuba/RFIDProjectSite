@@ -38,7 +38,7 @@
             } else {echo "Error: " . $sql . "<br>" . $conn->error;}
             $conn->close();
         } else if ($data["keyword"] == "MFRC522POST") { // mfrc522 post with json encoding
-            $sql = "update clientID set tag = '" . $data["cardID"] . "' where username = realtest";
+            $sql = "update clientID set tag = '" . $data["cardID"] . "' where username = 'realtest'";
             if ($conn->query($sql) === TRUE) {
                 echo "Record updated successfully";
             } else {echo "Error: " . $sql . "<br>" . $conn->error;} 
