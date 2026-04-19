@@ -38,7 +38,7 @@
         // }
 
 
-        else if ($data["keyword"] == "MFRC522AUT")
+        if ($data["keyword"] == "MFRC522AUT")
         { // client authentication
             $sql = "SELECT cardID FROM clientID ORDER BY id DESC";
             $result = $conn->query($sql);
