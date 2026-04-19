@@ -144,6 +144,7 @@
         else
         {
             echo "Wrong Keyword provided.";
+            echo $data["keyword"];
         } // error
     }
     
