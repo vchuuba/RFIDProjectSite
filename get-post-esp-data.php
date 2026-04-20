@@ -6,19 +6,18 @@
     $username = "testUser";
     // Your Database user password
     $password = "Shell111";
-    
-    // Create connection
-    $conn = new mysqli($servername, $username, $password, $dbname);
-        // Check connection
-    if ($conn->connect_error)
-    {
-        die("Connection failed: " . $conn->connect_error);
-    }
 
     if ($_SERVER["REQUEST_METHOD"] == "POST")
     {
         if (test_input($_POST["keyword"]) == "MFRC522AUT")
         { // client authentication
+            // Create connection
+            $conn = new mysqli($servername, $username, $password, $dbname);
+                // Check connection
+            if ($conn->connect_error)
+            {
+                die("Connection failed: " . $conn->connect_error);
+            }
             $sql = "SELECT id, cardID FROM clientID WHERE cardID = '" . test_input($_POST["cardID"]) . "'";
             if ($conn->query($sql) === TRUE)
             {
@@ -34,6 +33,12 @@
 
         else if (test_input($_POST["keyword"]) == "MFRC522REG")
         { // client registration
+            $conn = new mysqli($servername, $username, $password, $dbname);
+                // Check connection
+            if ($conn->connect_error)
+            {
+                die("Connection failed: " . $conn->connect_error);
+            }
             $sql = "SELECT id, cardID FROM clientID WHERE cardID = '" . test_input($_POST["cardID"]) . "'";
             if ($conn->query($sql) === TRUE)
             {
@@ -57,6 +62,12 @@
 
         // else if (test_input($_POST["keyword"]) == "PN532DET")
         // { // item detection
+        //     $conn = new mysqli($servername, $username, $password, $dbname);
+        //     // Check connection
+        //     if ($conn->connect_error)
+        //     {
+        //         die("Connection failed: " . $conn->connect_error);
+        //     }
         //     $sql = "SELECT id, cardID FROM productList WHERE cardID = '" . test_input($_POST["cardID"]) . "'";
         //     $result = $conn->query($sql);
         //     if ($conn->query($result) === TRUE)
