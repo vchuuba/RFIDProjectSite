@@ -27,7 +27,7 @@
             while ($row = $result->fetch_assoc()) {
             $rows[$row["id"]] = $row["tag"];
             }
-            echo $rows[0];
+            echo json_encode($rows);
             $conn->close();
         }
 
