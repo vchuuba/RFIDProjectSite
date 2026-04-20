@@ -12,7 +12,6 @@
 */
 
 $servername = "localhost";
-
 // REPLACE with your Database name
 $dbname = "RFID";
 // REPLACE with Database user

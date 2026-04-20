@@ -13,7 +13,7 @@
 
     if ($_SERVER["REQUEST_METHOD"] == "POST")
     {
-        if (test_input($_POST["keyword"]) == "MFRC522AUT")
+        if ($_POST["keyword"] == "MFRC522AUT")
         { // client authentication
             // Create connection
             $conn = new mysqli($servername, $username, $password, $dbname);
@@ -22,43 +22,45 @@
             {
                 die("Connection failed: " . $conn->connect_error);
             }
-            $sql = "SELECT id, cardID FROM clientID WHERE cardID = '" . test_input($_POST["cardID"]) . "'";
-        if ($result = $conn->query($sql)) {
-            echo $result;
-        }
-        else {
-            echo "idk lol";
-        }
+            $sql = "SELECT id, cardID FROM clientID WHERE cardID = '" . $_POST["cardID"] . "'";
+            if ($result = $conn->query($sql))
+            {
+                echo $result;
+            }
+            else
+            {
+                echo "idk lol";
+            }
             $conn->close();
         }
 
-        else if (test_input($_POST["keyword"]) == "MFRC522REG")
-        { // client registration
-            $conn = new mysqli($servername, $username, $password, $dbname);
-                // Check connection
-            if ($conn->connect_error)
-            {
-                die("Connection failed: " . $conn->connect_error);
-            }
-            $sql = "SELECT id, cardID FROM clientID WHERE cardID = '" . test_input($_POST["cardID"]) . "'";
-            if ($conn->query($sql) === TRUE)
-            {
-                $sql = "INSERT INTO clientID (cardID) VALUES ('" . test_input($_POST["cardID"]) . "')";
-                if ($conn->query($sql) === TRUE)
-                {
-                    echo "Registered";
-                }
-                else 
-                {
-                    echo "Error: " . $sql . "<br>" . $conn->error;
-                }
-            }
-            else 
-            {
-                echo "Not registered";
-            }
-            $conn->close();
-        }
+        // else if (test_input($_POST["keyword"]) == "MFRC522REG")
+        // { // client registration
+        //     $conn = new mysqli($servername, $username, $password, $dbname);
+        //         // Check connection
+        //     if ($conn->connect_error)
+        //     {
+        //         die("Connection failed: " . $conn->connect_error);
+        //     }
+        //     $sql = "SELECT id, cardID FROM clientID WHERE cardID = '" . test_input($_POST["cardID"]) . "'";
+        //     if ($conn->query($sql) === TRUE)
+        //     {
+        //         $sql = "INSERT INTO clientID (cardID) VALUES ('" . test_input($_POST["cardID"]) . "')";
+        //         if ($conn->query($sql) === TRUE)
+        //         {
+        //             echo "Registered";
+        //         }
+        //         else 
+        //         {
+        //             echo "Error: " . $sql . "<br>" . $conn->error;
+        //         }
+        //     }
+        //     else 
+        //     {
+        //         echo "Not registered";
+        //     }
+        //     $conn->close();
+        // }
 
         // else if (test_input($_POST["keyword"]) == "PN532DET")
         // { // item detection
@@ -110,12 +112,4 @@
     }
     
     echo "test3";
-
-    function test_input($data)
-    {
-        $data = trim($data);
-        $data = stripslashes($data);
-        $data = htmlspecialchars($data);
-        return $data;
-    }
 ?>
