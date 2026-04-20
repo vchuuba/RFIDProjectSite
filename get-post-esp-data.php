@@ -7,7 +7,9 @@
     // Your Database user password
     $password = "Shell111";
 
-        // Create connection
+    echo "test1";
+    
+    // Create connection
     $conn = new mysqli($servername, $username, $password, $dbname);
         // Check connection
     if ($conn->connect_error)
@@ -15,6 +17,7 @@
         die("Connection failed: " . $conn->connect_error);
     }
 
+    echo "test2";
 
     if ($_SERVER["REQUEST_METHOD"] == "POST")
     {
@@ -101,6 +104,7 @@
         echo "No data posted with HTTP POST.";
     }
     
+    echo "test3";
 
     function test_input($data)
     {
