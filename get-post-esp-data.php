@@ -11,7 +11,6 @@
     //read body
     $raw = file_get_contents('php://input');
     $data = json_decode($raw, true);
-    $cardID = test_input($_POST["cardID"]);
 
     // empty vars
     $default = array("keyword" => "none", "cardID" => "none");
@@ -28,26 +27,24 @@
 
     if ($_SERVER["REQUEST_METHOD"] == "POST")
     {
-        $action = test_input($_POST["keyword"]);
-        if ($action == "MFRC522AUT")
+        if ($data["keyword"] == "MFRC522AUT")
         { // client authentication
-            // $sql = "SELECT id, cardID FROM clientID WHERE cardID = '" . $cardID . "'";
-            // $result = $conn->query($sql);
-            // if ($conn->query($result) === TRUE)
-            // {
-            //     while ($row = $result->fetch_assoc()) {
-            //         $rows[$row["id"]] = $row["cardID"];
-            //     }
-            //     if ($data["cardID"] == $row["cardID"])
-            //     {
-            //         echo json_encode($rows);
-            //     }
-            //     else 
-            //     {
-            //         echo json_encode($default);
-            //     }
-            // }
-            echo json_encode($fail);
+            $sql = "SELECT id, cardID FROM clientID WHERE cardID = '" . $data["cardID"] . "'";
+            $result = $conn->query($sql);
+            if ($conn->query($result) === TRUE)
+            {
+                while ($row = $result->fetch_assoc()) {
+                    $rows[$row["id"]] = $row["cardID"];
+                }
+                if ($data["cardID"] == $row["cardID"])
+                {
+                    echo json_encode($rows);
+                }
+                else 
+                {
+                    echo json_encode($default);
+                }
+            }
             $conn->close();
         }
 
