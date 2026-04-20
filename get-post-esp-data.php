@@ -15,7 +15,7 @@
 
     // empty vars
     $default = array("keyword" => "none", "cardID" => "none");
-     $fail = ["keyword" => null, "cardID" => null];
+    $fail = ["keyword" => "none", "cardID" => "none"];
 
         // Create connection
     $conn = new mysqli($servername, $username, $password, $dbname);
@@ -47,7 +47,7 @@
             //         echo json_encode($default);
             //     }
             // }
-            echo json_encode($default);
+            echo json_encode($fail);
             $conn->close();
         }
 
