@@ -22,12 +22,16 @@
             {
                 die("Connection failed: " . $conn->connect_error);
             }
-            $sql = "SELECT id, cardID FROM clientID WHERE cardID = '" . $_POST["cardID"] . "'";
-            $result = $conn->query($sql);
-            while ($row = $result->fetch_assoc()) {
-            $rows[$row["id"]] = $row["cardID"];
+            $sql = "SELECT id, cardID FROM clientID WHERE tag = '" . $_POST["cardID"] . "'";
+            if ($result = $conn->query($sql))
+            {
+                echo $result;
             }
-            echo $rows;
+            else
+            {
+                echo "idk lol";
+            }
+            echo "testestestestests";
             $conn->close();
         }
 
