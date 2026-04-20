@@ -7,7 +7,7 @@
     // Your Database user password
     $password = "Shell111";
 
-    echo "test1";
+    echo "Authenticated";
     
     // Create connection
     $conn = new mysqli($servername, $username, $password, $dbname);
@@ -16,8 +16,6 @@
     {
         die("Connection failed: " . $conn->connect_error);
     }
-
-    echo "test2";
 
     if ($_SERVER["REQUEST_METHOD"] == "POST")
     {
