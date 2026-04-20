@@ -11,10 +11,11 @@
     //read body
     $raw = file_get_contents('php://input');
     $data = json_decode($raw, true);
+    $cardID = test_input($_POST["cardID"]);
 
     // empty vars
     $default = array("keyword" => "none", "cardID" => "none");
-    // $fail = ["keyword" => null, "cardID" => null];
+     $fail = ["keyword" => null, "cardID" => null];
 
         // Create connection
     $conn = new mysqli($servername, $username, $password, $dbname);
@@ -27,9 +28,10 @@
 
     if ($_SERVER["REQUEST_METHOD"] == "POST")
     {
-        if ($data["keyword"] == "MFRC522AUT")
+        $action = test_input($_POST["keyword"]);
+        if ($action == "MFRC522AUT")
         { // client authentication
-            $sql = "SELECT id, cardID FROM clientID WHERE cardID = '" . $data["cardID"] . "'";
+            $sql = "SELECT id, cardID FROM clientID WHERE cardID = '" . $cardID . "'";
             $result = $conn->query($sql);
             if ($conn->query($result) === TRUE)
             {
