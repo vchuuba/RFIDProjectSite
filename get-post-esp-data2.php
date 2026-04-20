@@ -15,7 +15,6 @@
         die("Connection failed: " . $conn->connect_error);
     }
 
-
     if ($_SERVER["REQUEST_METHOD"] == "POST")
     {
         if (test_input($_POST["keyword"]) == "MFRC522AUT")
