@@ -7,6 +7,8 @@
     // Your Database user password
     $password = "Shell111";
 
+    echo $_POST["keyword"];
+
     if ($_SERVER["REQUEST_METHOD"] == "POST")
     {
         if (test_input($_POST["keyword"]) == "MFRC522AUT")
