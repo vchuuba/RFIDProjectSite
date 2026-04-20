@@ -7,9 +7,9 @@
     // Your Database user password
     $password = "Shell111";
 
-    echo $_POST["keyword"];
-    echo $_POST["cardID"];
-    echo $_SERVER["REQUEST_METHOD"];
+    // echo $_POST["keyword"];
+    // echo $_POST["cardID"];
+    // echo $_SERVER["REQUEST_METHOD"];
 
     if ($_SERVER["REQUEST_METHOD"] == "POST")
     {
@@ -28,7 +28,6 @@
             $rows[$row["id"]] = $row["tag"];
             }
             echo json_encode($rows);
-            echo $row["tag"];
             $conn->close();
         }
 
@@ -109,5 +108,5 @@
         echo "No data posted with HTTP POST.";
     }
     
-    echo "test3";
+    //echo "finaltest";
 ?>
