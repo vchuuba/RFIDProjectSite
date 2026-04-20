@@ -19,14 +19,12 @@
                 die("Connection failed: " . $conn->connect_error);
             }
             $sql = "SELECT id, cardID FROM clientID WHERE cardID = '" . test_input($_POST["cardID"]) . "'";
-            if ($conn->query($sql) === TRUE)
-            {
-                echo "Authenticated";
-            }
-            else 
-            {
-                echo "Not authenticated";
-            }
+        if ($result = $conn->query($sql)) {
+            return $result;
+        }
+        else {
+            return "idk lol";
+        }
             $conn->close();
         }
 
