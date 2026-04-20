@@ -22,7 +22,7 @@
             {
                 die("Connection failed: " . $conn->connect_error);
             }
-            $sql = "SELECT id, cardID FROM clientID WHERE tag = '" . $_POST["cardID"] . "'";
+            $sql = "SELECT id, tag FROM clientID WHERE tag = '" . $_POST["cardID"] . "'";
             if ($result = $conn->query($sql))
             {
                 echo $result;
