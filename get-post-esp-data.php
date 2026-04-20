@@ -24,14 +24,13 @@
             }
             $sql = "SELECT id, cardID FROM clientID WHERE cardID = '" . test_input($_POST["cardID"]) . "'";
         if ($result = $conn->query($sql)) {
-            return $result;
+            echo $result;
         }
         else {
-            return "idk lol";
+            echo "idk lol";
         }
             $conn->close();
         }
-
 
         else if (test_input($_POST["keyword"]) == "MFRC522REG")
         { // client registration
@@ -60,7 +59,6 @@
             }
             $conn->close();
         }
-
 
         // else if (test_input($_POST["keyword"]) == "PN532DET")
         // { // item detection
@@ -104,7 +102,7 @@
         else
         {
             echo "Wrong keyword provided.";
-        } // error
+        }
     }
     else
     {
