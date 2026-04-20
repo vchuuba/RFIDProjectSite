@@ -12,6 +12,9 @@
     $raw = file_get_contents('php://input');
     $data = json_decode($raw, true);
 
+    // empty vars
+    $default = array("keyword" => "none", "cardID" => "none");
+    // $fail = ["keyword" => null, "cardID" => null];
 
         // Create connection
     $conn = new mysqli($servername, $username, $password, $dbname);
@@ -24,107 +27,63 @@
 
     if ($_SERVER["REQUEST_METHOD"] == "POST")
     {
-        // insert $keyword = test_input($_POST["keyword"]) for url encoding
-        // if($keyword == "tPmAT5Ab3j7F9")
-        // { // test with url encoding
-        //     $cardID = test_input($_POST["cardID"]);
-        //     $sql = "update clientID set tag = '" . $cardID . "' where id = 26";
-        //     if ($conn->query($sql) === TRUE) 
-        //     {
-        //         echo "Record updated successfully";
-        //     }
-        //     else {echo "Error: " . $sql . "<br>" . $conn->error;}
-        //     $conn->close();
-        // }
-
-
         if ($data["keyword"] == "MFRC522AUT")
         { // client authentication
-            $sql = "SELECT cardID FROM clientID ORDER BY id DESC";
+            $sql = "SELECT cardID FROM clientID WHERE cardID = '" . $data["cardID"] . "'";
             $result = $conn->query($sql);
-            $BOOL = false;
             if ($conn->query($result) === TRUE)
             {
-                while ($row = $result->fetch_assoc())
+                if ($data["cardID"] == $result["cardID"])
                 {
-                    if ($data["cardID"] == $row["cardID"])
-                    {
-                        $BOOL = true;
-                        break;
-                    }
-                }
-                if (!$BOOL)
-                {
-                    echo json_encode($row);
+                    echo json_encode($result);
                 }
                 else 
                 {
-                    echo json_encode($data["cardID"]);
+                    echo json_encode($default);
                 }
             }
-            $result->free();
             $conn->close();
         }
 
 
         else if ($data["keyword"] == "MFRC522REG")
         { // client registration
-            $sql = "SELECT cardID FROM clientID ORDER BY id DESC";
+            $sql = "SELECT cardID FROM clientID WHERE cardID = '" . $data["cardID"] . "'";
             $result = $conn->query($sql);
-            $BOOL = false;
             if ($conn->query($result) === TRUE)
             {
-                while ($row = $result->fetch_assoc())
-                {
-                    if ($data["cardID"] == $row["cardID"])
-                    {
-                        $BOOL = true;
-                        break;
-                    }
-                }
-                if (!$BOOL)
+                if ($data["cardID"] == $result["cardID"])
                 {
                     $sql = "INSERT INTO clientID (cardID) VALUES ('" . $data["cardID"] . "')";
                     if ($conn->query($sql) === TRUE)
                     {
-                        echo json_encode($row);
+                        echo json_encode($result);
                     }
                 }
                 else 
                 {
-                    echo json_encode($data["cardID"]);
+                    echo json_encode($default);
                 }
             }
-            $result->free();
             $conn->close();
         }
 
 
         else if ($data["keyword"] == "PN532DET")
         { // item detection
-            $sql = "SELECT cardID FROM productList ORDER BY id DESC";
+            $sql = "SELECT cardID FROM productList WHERE cardID = '" . $data["cardID"] . "'";
             $result = $conn->query($sql);
-            $BOOL = false;
             if ($conn->query($result) === TRUE)
             {
-                while ($row = $result->fetch_assoc())
+                if ($data["cardID"] == $result["cardID"])
                 {
-                    if ($data["cardID"] == $row["cardID"])
-                    {
-                        $BOOL = true;
-                        break;
-                    }
-                }
-                if (!$BOOL)
-                {
-                    echo json_encode($row);
+                    echo json_encode($result);
                 }
                 else 
                 {
-                    echo json_encode($data["cardID"]);
+                    echo json_encode($default);
                 }
             }
-            $result->free();
             $conn->close();
         }
 
@@ -144,7 +103,7 @@
         else
         {
             echo "Wrong Keyword provided.";
-            echo $data["keyword"];
+            // echo $data["keyword"];
         } // error
     }
     
