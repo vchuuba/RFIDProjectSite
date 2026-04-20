@@ -27,8 +27,7 @@
             while ($row = $result->fetch_assoc()) {
             $rows[$row["id"]] = $row["tag"];
             }
-            echo $rows;
-            echo "testestestestests";
+            echo $rows[0];
             $conn->close();
         }
 
