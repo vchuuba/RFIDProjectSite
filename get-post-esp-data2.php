@@ -58,38 +58,38 @@
         }
 
 
-        // else if (test_input($_POST["keyword"]) == "PN532DET")
-        // { // item detection
-        //     $sql = "SELECT id, cardID FROM productList WHERE cardID = '" . test_input($_POST["cardID"]) . "'";
-        //     $result = $conn->query($sql);
-        //     if ($conn->query($result) === TRUE)
-        //     {
-        //         while ($row = $result->fetch_assoc()) {
-        //             $rows[$row["id"]] = $row["cardID"];
-        //         }
-        //         if (test_input($_POST["cardID"]) == $row["cardID"])
-        //         {
-        //             echo "Detected";
-        //         }
-        //         else 
-        //         {
-        //             echo "Not detected";
-        //         }
-        //     }
-        //     $conn->close();
-        // }
+        else if (test_input($_POST["keyword"]) == "PN532DET")
+        { // item detection
+            $sql = "SELECT id, cardID FROM productList WHERE cardID = '" . test_input($_POST["cardID"]) . "'";
+            $result = $conn->query($sql);
+            if ($conn->query($result) === TRUE)
+            {
+                while ($row = $result->fetch_assoc()) {
+                    $rows[$row["id"]] = $row["cardID"];
+                }
+                if (test_input($_POST["cardID"]) == $row["cardID"])
+                {
+                    echo "Detected";
+                }
+                else 
+                {
+                    echo "Not detected";
+                }
+            }
+            $conn->close();
+        }
 
 
-        // else if (test_input($_POST["keyword"]) == "PN532SEL")
-        // { // client registration
-        //     $sql = "update productList set cardID = '" . test_input($_POST["cardID"]) . "' where productName = 'realtest'";
-        //     if ($conn->query($sql) === TRUE)
-        //     {
-        //         echo "Record updated successfully";
-        //     }
-        //     else {echo "Error: " . $sql . "<br>" . $conn->error;} 
-        //     $conn->close();
-        // }
+        else if (test_input($_POST["keyword"]) == "PN532SEL")
+        { // client registration
+            $sql = "update productList set cardID = '" . test_input($_POST["cardID"]) . "' where productName = 'realtest'";
+            if ($conn->query($sql) === TRUE)
+            {
+                echo "Record updated successfully";
+            }
+            else {echo "Error: " . $sql . "<br>" . $conn->error;} 
+            $conn->close();
+        }
 
         else
         {
