@@ -26,8 +26,13 @@
             $result = $conn->query($sql);
             while ($row = $result->fetch_assoc()) {
             $rows[$row["id"]] = $row["tag"];
+            $tester = $row["tag"];
             }
-            echo json_encode($rows);
+//            echo json_encode($rows);
+//              $list = [ $tester ] ;
+//              echo json_encode($list, JSON_FORCE_OBJECT);
+                $data = [ "tag" => "Authenticated" ];
+                echo json_encode($data);
             $conn->close();
         }
 
