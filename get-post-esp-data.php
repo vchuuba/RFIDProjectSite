@@ -29,13 +29,16 @@
     {
         if ($data["keyword"] == "MFRC522AUT")
         { // client authentication
-            $sql = "SELECT cardID FROM clientID WHERE cardID = '" . $data["cardID"] . "'";
+            $sql = "SELECT id, cardID FROM clientID WHERE cardID = '" . $data["cardID"] . "'";
             $result = $conn->query($sql);
             if ($conn->query($result) === TRUE)
             {
-                if ($data["cardID"] == $result["cardID"])
+                while ($row = $result->fetch_assoc()) {
+                    $rows[$row["id"]] = $row["cardID"];
+                }
+                if ($data["cardID"] == $row["cardID"])
                 {
-                    echo json_encode($result);
+                    echo json_encode($rows);
                 }
                 else 
                 {
@@ -48,16 +51,19 @@
 
         else if ($data["keyword"] == "MFRC522REG")
         { // client registration
-            $sql = "SELECT cardID FROM clientID WHERE cardID = '" . $data["cardID"] . "'";
+            $sql = "SELECT id, cardID FROM clientID WHERE cardID = '" . $data["cardID"] . "'";
             $result = $conn->query($sql);
             if ($conn->query($result) === TRUE)
             {
-                if ($data["cardID"] == $result["cardID"])
+                while ($row = $result->fetch_assoc()) {
+                    $rows[$row["id"]] = $row["cardID"];
+                }
+                if ($data["cardID"] == $row["cardID"])
                 {
                     $sql = "INSERT INTO clientID (cardID) VALUES ('" . $data["cardID"] . "')";
                     if ($conn->query($sql) === TRUE)
                     {
-                        echo json_encode($result);
+                        echo json_encode($rows);
                     }
                 }
                 else 
@@ -71,13 +77,16 @@
 
         else if ($data["keyword"] == "PN532DET")
         { // item detection
-            $sql = "SELECT cardID FROM productList WHERE cardID = '" . $data["cardID"] . "'";
+            $sql = "SELECT id, cardID FROM productList WHERE cardID = '" . $data["cardID"] . "'";
             $result = $conn->query($sql);
             if ($conn->query($result) === TRUE)
             {
-                if ($data["cardID"] == $result["cardID"])
+                while ($row = $result->fetch_assoc()) {
+                    $rows[$row["id"]] = $row["cardID"];
+                }
+                if ($data["cardID"] == $row["cardID"])
                 {
-                    echo json_encode($result);
+                    echo json_encode($rows);
                 }
                 else 
                 {
