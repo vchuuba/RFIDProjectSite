@@ -23,14 +23,15 @@
                 die("Connection failed: " . $conn->connect_error);
             }
             $sql = "SELECT id, cardID FROM clientID WHERE cardID = '" . $_POST["cardID"] . "'";
-            if ($result = $conn->query($sql))
-            {
-                echo $result;
-            }
-            else
-            {
-                echo "idk lol";
-            }
+            // if ($result = $conn->query($sql))
+            // {
+            //     echo $result;
+            // }
+            // else
+            // {
+            //     echo "idk lol";
+            // }
+            echo "testestestestests";
             $conn->close();
         }
 
