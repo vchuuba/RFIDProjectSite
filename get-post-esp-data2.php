@@ -21,8 +21,7 @@
         if (test_input($_POST["keyword"]) == "MFRC522AUT")
         { // client authentication
             $sql = "SELECT id, cardID FROM clientID WHERE cardID = '" . test_input($_POST["cardID"]) . "'";
-            $result = $conn->query($sql);
-            if ($conn->query($result) === TRUE)
+            if ($conn->query($sql) === TRUE)
             {
                 echo "Authenticated";
             }
@@ -37,8 +36,7 @@
         else if (test_input($_POST["keyword"]) == "MFRC522REG")
         { // client registration
             $sql = "SELECT id, cardID FROM clientID WHERE cardID = '" . test_input($_POST["cardID"]) . "'";
-            $result = $conn->query($sql);
-            if ($conn->query($result) === TRUE)
+            if ($conn->query($sql) === TRUE)
             {
                 $sql = "INSERT INTO clientID (cardID) VALUES ('" . test_input($_POST["cardID"]) . "')";
                 if ($conn->query($sql) === TRUE)
@@ -61,8 +59,7 @@
         else if (test_input($_POST["keyword"]) == "PN532DET")
         { // item detection
             $sql = "SELECT id, cardID FROM productList WHERE cardID = '" . test_input($_POST["cardID"]) . "'";
-            $result = $conn->query($sql);
-            if ($conn->query($result) === TRUE)
+            if ($conn->query($sql) === TRUE)
             {
                 while ($row = $result->fetch_assoc()) {
                     $rows[$row["id"]] = $row["cardID"];
