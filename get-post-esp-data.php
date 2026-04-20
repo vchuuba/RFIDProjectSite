@@ -23,14 +23,11 @@
                 die("Connection failed: " . $conn->connect_error);
             }
             $sql = "SELECT id, tag FROM clientID WHERE tag = '" . $_POST["cardID"] . "'";
-            if ($result = $conn->query($sql))
-            {
-                echo $result;
+            $result = $conn->query($sql);
+            while ($row = $result->fetch_assoc()) {
+            $rows[$row["id"]] = $row["tag"];
             }
-            else
-            {
-                echo "idk lol";
-            }
+            echo $rows;
             echo "testestestestests";
             $conn->close();
         }
