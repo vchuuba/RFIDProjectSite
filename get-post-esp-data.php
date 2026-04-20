@@ -28,6 +28,7 @@
             $rows[$row["id"]] = $row["tag"];
             }
             echo json_encode($rows);
+            echo $row["tag"];
             $conn->close();
         }
 
