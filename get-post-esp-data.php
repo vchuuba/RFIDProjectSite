@@ -124,5 +124,6 @@
     //     $data = htmlspecialchars($data);
     //     return $data;
     // }
-    echo json_encode($data);
+    //echo json_encode($data);
+    echo "testtest";
 ?>
