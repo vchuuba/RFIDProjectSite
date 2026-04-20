@@ -49,7 +49,7 @@
             //     echo "testtest";
             // }
             // $conn->close();
-            echo "testtest";
+            echo $default;
         }
 
 
