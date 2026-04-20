@@ -8,6 +8,8 @@
     $password = "Shell111";
 
     echo $_POST["keyword"];
+    echo $_POST["cardID"];
+    echo $_SERVER["REQUEST_METHOD"];
 
     if ($_SERVER["REQUEST_METHOD"] == "POST")
     {
