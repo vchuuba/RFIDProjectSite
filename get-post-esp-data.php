@@ -7,13 +7,9 @@
     // Your Database user password
     $password = "Shell111";
 
-    // echo $_POST["keyword"];
-    // echo $_POST["cardID"];
-    // echo $_SERVER["REQUEST_METHOD"];
-
     if ($_SERVER["REQUEST_METHOD"] == "POST")
     {
-        if ($_POST["keyword"] == "MFRC522AUT")
+        if (test_input($_POST["keyword"]) == "MFRC522AUT")
         { // client authentication
             // Create connection
             $conn = new mysqli($servername, $username, $password, $dbname);
@@ -22,86 +18,114 @@
             {
                 die("Connection failed: " . $conn->connect_error);
             }
-            $sql = "SELECT id, tag FROM clientID WHERE tag = '" . $_POST["cardID"] . "'";
+            $sql = "SELECT tag FROM clientID WHERE tag = '" . test_input($_POST["cardID"]) . "'";
             $result = $conn->query($sql);
-            while ($row = $result->fetch_assoc()) {
-            $rows[$row["id"]] = $row["tag"];
-            $tester = $row["tag"];
+            while ($row = $result->fetch_assoc())
+            {
+                        $card = $row["tag"];
             }
-//            echo json_encode($rows);
-//              $list = [ $tester ] ;
-//              echo json_encode($list, JSON_FORCE_OBJECT);
-                $data = [ "tag" => "Authenticated" ];
-                echo json_encode($data);
+            if (test_input($_POST["cardID"]) == $card)
+            {
+                echo "Authenticated";
+            }
+            else
+            {
+                echo "Not authenticated";
+            }
             $conn->close();
         }
 
-        // else if (test_input($_POST["keyword"]) == "MFRC522REG")
-        // { // client registration
-        //     $conn = new mysqli($servername, $username, $password, $dbname);
-        //         // Check connection
-        //     if ($conn->connect_error)
-        //     {
-        //         die("Connection failed: " . $conn->connect_error);
-        //     }
-        //     $sql = "SELECT id, cardID FROM clientID WHERE cardID = '" . test_input($_POST["cardID"]) . "'";
-        //     if ($conn->query($sql) === TRUE)
-        //     {
-        //         $sql = "INSERT INTO clientID (cardID) VALUES ('" . test_input($_POST["cardID"]) . "')";
-        //         if ($conn->query($sql) === TRUE)
-        //         {
-        //             echo "Registered";
-        //         }
-        //         else 
-        //         {
-        //             echo "Error: " . $sql . "<br>" . $conn->error;
-        //         }
-        //     }
-        //     else 
-        //     {
-        //         echo "Not registered";
-        //     }
-        //     $conn->close();
-        // }
+        else if (test_input($_POST["keyword"]) == "MFRC522REG")
+        { // client registration
+                $conn = new mysqli($servername, $username, $password, $dbname);
+                // Check connection
+                if ($conn->connect_error)
+                {
+                        die("Connection failed: " . $conn->connect_error);
+                }
+                $sql = "SELECT tag FROM clientID WHERE tag = '" . test_input($_POST["cardID"]) . "'";
+            $result = $conn->query($sql);
+            while ($row = $result->fetch_assoc())
+            {
+                        $card = $row["tag"];
+            }
+            if (test_input($_POST["cardID"]) == $card)
+            {
+                echo "Already registered";
+            }
+            else
+            {
+                $sql = "INSERT INTO clientID (tag) VALUES ('" . test_input($_POST["cardID"]) . "')";
+                $conn->query($sql);
+                echo "Registered";
+            }
+                $conn->close();
+        }
 
-        // else if (test_input($_POST["keyword"]) == "PN532DET")
-        // { // item detection
-        //     $conn = new mysqli($servername, $username, $password, $dbname);
-        //     // Check connection
-        //     if ($conn->connect_error)
-        //     {
-        //         die("Connection failed: " . $conn->connect_error);
-        //     }
-        //     $sql = "SELECT id, cardID FROM productList WHERE cardID = '" . test_input($_POST["cardID"]) . "'";
-        //     $result = $conn->query($sql);
-        //     if ($conn->query($result) === TRUE)
-        //     {
-        //         while ($row = $result->fetch_assoc()) {
-        //             $rows[$row["id"]] = $row["cardID"];
-        //         }
-        //         if (test_input($_POST["cardID"]) == $row["cardID"])
-        //         {
-        //             echo "Detected";
-        //         }
-        //         else 
-        //         {
-        //             echo "Not detected";
-        //         }
-        //     }
-        //     $conn->close();
-        // }
+        else if (test_input($_POST["keyword"]) == "PN532DET")
+        { // item detection
+            $conn = new mysqli($servername, $username, $password, $dbname);
+            // Check connection
+            if ($conn->connect_error)
+            {
+                die("Connection failed: " . $conn->connect_error);
+            }
+            $sql = "SELECT id, cardID FROM productList WHERE id = '" . test_input($_POST["Locker"]) . "'";
+            $result = $conn->query($sql);
+            while ($row = $result->fetch_assoc())
+            {
+                        $tag = $row["cardID"];
+            }
+            if (test_input($_POST["cardID"]) == $tag)
+            {
+                echo "Detected";
+            }
+            else
+            {
+                echo "Not detected";
+            }
+            $conn->close();
+        }
 
-
-        // else if (test_input($_POST["keyword"]) == "PN532SEL")
-        // { // client registration
-        //     $sql = "update productList set cardID = '" . test_input($_POST["cardID"]) . "' where productName = 'realtest'";
-        //     if ($conn->query($sql) === TRUE)
-        //     {
-        //         echo "Record updated successfully";
-        //     }
-        //     else {echo "Error: " . $sql . "<br>" . $conn->error;} 
-        //     $conn->close();
-        // }
+        else if (test_input($_POST["keyword"]) == "PN532SEL")
+        { // item on taking
+            $conn = new mysqli($servername, $username, $password, $dbname);
+            // Check connection
+            if ($conn->connect_error)
+            {
+                die("Connection failed: " . $conn->connect_error);
+            }
+                $sql = "SELECT client, status FROM productList WHERE id = '" . test_input($_POST["Locker"]) . "'";
+            while ($row = $result->fetch_assoc())
+            {
+                        $client = $row["client"];
+                        $status = $row["status"];
+            }
+                if($status == "Available")
+                {
+                    $sql = "update productList set status = 'Reserved', client = '" . test_input($_POST["cardID"]) . "' WHERE id = '" . test_input($_POST["Locker"]) . "'";
+                    $conn->query($sql);
+                        echo "Obtained";
+                }
+                else if($status == "Reserved")
+                {
+                        if($client == test_input($_POST["cardID"]))
+                        {
+                            $sql = "update productList set status = 'Available', client = 'None' WHERE id = '" . test_input($_POST["Locker"]) . "'";
+                            $conn->query($sql);
+                                echo "Returned";
+                        }
+                        else
+                        {
+                                echo "Unauthorized";
+                        }
+                }
+                else
+                {
+                    echo "Error";
+            }
+            $conn->close();
+        }
 
         else
         {
@@ -112,6 +136,12 @@
     {
         echo "No data posted with HTTP POST.";
     }
-    
-    //echo "finaltest";
+
+    function test_input($data)
+    {
+        $data = trim($data);
+        $data = stripslashes($data);
+        $data = htmlspecialchars($data);
+        return $data;
+    }
 ?>

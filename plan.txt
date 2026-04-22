@@ -1,0 +1,5 @@
+item select will only update product to not trigger alarm
+
+item detect will check trigger var and tag var
+
+how to return item? client deselect?
