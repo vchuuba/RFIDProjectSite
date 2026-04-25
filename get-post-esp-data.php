@@ -62,32 +62,7 @@
                 $conn->close();
         }
 
-        else if (test_input($_POST["keyword"]) == "PN532DET")
-        { // item detection
-            $conn = new mysqli($servername, $username, $password, $dbname);
-            // Check connection
-            if ($conn->connect_error)
-            {
-                die("Connection failed: " . $conn->connect_error);
-            }
-            $sql = "SELECT id, cardID FROM productList WHERE id = '" . test_input($_POST["Locker"]) . "'";
-            $result = $conn->query($sql);
-            while ($row = $result->fetch_assoc())
-            {
-                        $tag = $row["cardID"];
-            }
-            if (test_input($_POST["cardID"]) == $tag)
-            {
-                echo "Detected";
-            }
-            else
-            {
-                echo "Not detected";
-            }
-            $conn->close();
-        }
-
-        else if (test_input($_POST["keyword"]) == "PN532SEL")
+        else if (test_input($_POST["keyword"]) == "MFRC522SEL")
         { // item on taking
             $conn = new mysqli($servername, $username, $password, $dbname);
             // Check connection
@@ -123,6 +98,31 @@
                 else
                 {
                     echo "Error";
+            }
+            $conn->close();
+        }
+
+        else if (test_input($_POST["keyword"]) == "PN532DET")
+        { // item detection
+            $conn = new mysqli($servername, $username, $password, $dbname);
+            // Check connection
+            if ($conn->connect_error)
+            {
+                die("Connection failed: " . $conn->connect_error);
+            }
+            $sql = "SELECT id, cardID FROM productList WHERE id = '" . test_input($_POST["Locker"]) . "'";
+            $result = $conn->query($sql);
+            while ($row = $result->fetch_assoc())
+            {
+                        $tag = $row["cardID"];
+            }
+            if (test_input($_POST["cardID"]) == $tag)
+            {
+                echo "Detected";
+            }
+            else
+            {
+                echo "Not detected";
             }
             $conn->close();
         }
