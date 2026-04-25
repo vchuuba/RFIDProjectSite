@@ -97,7 +97,6 @@
         echo "No data posted with HTTP POST.";
     }
     
-
     function test_input($data)
     {
         $data = trim($data);
