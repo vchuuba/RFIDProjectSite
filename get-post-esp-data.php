@@ -61,7 +61,7 @@
                 {
                     $username = $row["username"];
                 }
-                if (test_input($_POST["username"]) == "")
+                if (test_input($_POST["username"]) == $username)
                 {
                     echo "!Duplicate!";
                 }
