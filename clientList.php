@@ -22,18 +22,20 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 } 
 
-$sql = "SELECT id, tag FROM clientID ORDER BY id DESC";
+$sql = "SELECT id, tag, username FROM clientID ORDER BY id DESC";
 
 echo '<table cellspacing="5" cellpadding="5">
       <tr> 
         <td>ID</td> 
         <td>Card ID</td> 
+        <td>Username</td> 
       </tr>';
  
 if ($result = $conn->query($sql)) {
     while ($row = $result->fetch_assoc()) {
         $row_id = $row["id"];
         $row_tag = $row["tag"];
+        $row_username = $row["username"];
 
         // Uncomment to set timezone to - 1 hour (you can change 1 to any number)
         //$row_reading_time = date("Y-m-d H:i:s", strtotime("$row_reading_time - 1 hours"));
@@ -44,6 +46,7 @@ if ($result = $conn->query($sql)) {
         echo '<tr> 
                 <td>' . $row_id . '</td> 
                 <td>' . $row_tag . '</td> 
+                <td>' . $row_username . '</td> 
               </tr>';
     }
     $result->free();

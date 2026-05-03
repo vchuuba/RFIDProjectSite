@@ -23,7 +23,7 @@
                 die("Connection failed: " . $conn->connect_error);
             }
 
-            $sql = "SELECT id, cardID, productName, itemStatus FROM productList ORDER BY id DESC";
+            $sql = "SELECT id, cardID, productName, itemStatus FROM productList ORDER BY id ASC";
             $result = $conn->query($sql);
 
             echo

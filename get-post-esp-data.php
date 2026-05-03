@@ -55,7 +55,7 @@
             }
             else
             {
-                $sql = "INSERT INTO clientID (tag) VALUES ('" . test_input($_POST["cardID"]) . "')";
+                $sql = "INSERT INTO clientID (tag, username) VALUES ('" . test_input($_POST["cardID"]) . "', '" . test_input($_POST["username"]) . "')";
                 $conn->query($sql);
                 echo "Registered";
             }
