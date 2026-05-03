@@ -1,3 +1,4 @@
+// alternate page to mess around with JSON objects
 <?php
     $servername = "localhost";
     // Your Database name

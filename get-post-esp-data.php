@@ -70,16 +70,16 @@
             {
                 die("Connection failed: " . $conn->connect_error);
             }
-            $sql = "SELECT client, status FROM productList WHERE id = '" . test_input($_POST["Locker"]) . "'";
+            $sql = "SELECT client, itemStatus FROM productList WHERE id = '" . test_input($_POST["Locker"]) . "'";
             $result = $conn->query($sql);
             while ($row = $result->fetch_assoc())
             {
                 $client = $row["client"];
-                $status = $row["status"];
+                $status = $row["itemStatus"];
             }
             if($status == "Available")
             {
-                $sql = "update productList set status = 'Reserved', client = '" . test_input($_POST["cardID"]) . "' WHERE id = '" . test_input($_POST["Locker"]) . "'";
+                $sql = "update productList set itemStatus = 'Reserved', client = '" . test_input($_POST["cardID"]) . "' WHERE id = '" . test_input($_POST["Locker"]) . "'";
                 $conn->query($sql);
                     echo "Obtained";
             }
@@ -87,7 +87,7 @@
             {
                 if($client == test_input($_POST["cardID"]))
                 {
-                    $sql = "update productList set status = 'Available', client = 'None' WHERE id = '" . test_input($_POST["Locker"]) . "'";
+                    $sql = "update productList set itemStatus = 'Available', client = 'None' WHERE id = '" . test_input($_POST["Locker"]) . "'";
                     $conn->query($sql);
                     echo "Returned";
                 }

@@ -13,17 +13,11 @@
 */
 
 $servername = "localhost";
-
-// REPLACE with your Database name
 $dbname = "RFID";
-// REPLACE with Database user
 $username = "testUser";
-// REPLACE with Database user password
 $password = "Shell111";
 
-// Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
-// Check connection
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 } 
@@ -58,5 +52,7 @@ if ($result = $conn->query($sql)) {
 $conn->close();
 ?> 
 </table>
+<br>
+<p><a href="index.html">Go back.</a> &lt;- Go back</p>
 </body>
 </html>
