@@ -83,6 +83,7 @@
             {
                 die("Connection failed: " . $conn->connect_error);
             }
+
             $sql = "SELECT client, itemStatus FROM productList WHERE id = '" . test_input($_POST["Locker"]) . "'";
             $result = $conn->query($sql);
             while ($row = $result->fetch_assoc())
@@ -90,19 +91,39 @@
                 $client = $row["client"];
                 $status = $row["itemStatus"];
             }
+            $sql = "SELECT username FROM clientID WHERE tag = '" . test_input($_POST["cardID"]) . "'";
+            $result = $conn->query($sql);
+            while ($row = $result->fetch_assoc())
+            {
+                $username = $row["username"];
+            }
+
             if($status == "Available")
             {
-                $sql = "update productList set itemStatus = 'Taken', client = '" . test_input($_POST["cardID"]) . "' WHERE id = '" . test_input($_POST["Locker"]) . "'";
+                $sql = "update productList set itemStatus = 'Taken', client = '" . $username . "' WHERE id = '" . test_input($_POST["Locker"]) . "'";
                 $conn->query($sql);
-                    echo "Obtained";
+                echo "Obtained";
             }
-            else if(($status == "Reserved")||($status == "Taken"))
+            else if($status == "Taken")
             {
-                if($client == test_input($_POST["cardID"]))
+                if($client == $username)
                 {
                     $sql = "update productList set itemStatus = 'Available', client = 'None' WHERE id = '" . test_input($_POST["Locker"]) . "'";
                     $conn->query($sql);
                     echo "Returned";
+                }
+                else
+                {
+                    echo "Unauthorized";
+                }
+            }
+            else if ($status == "Reserved")
+            {
+                if ($client == $username)
+                {
+                    $sql = "update productList set itemStatus = 'Taken', client = '" . $username . "' WHERE id = '" . test_input($_POST["Locker"]) . "'";
+                    $conn->query($sql);
+                    echo "Obtained";
                 }
                 else
                 {
