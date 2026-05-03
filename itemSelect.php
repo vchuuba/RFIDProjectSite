@@ -66,7 +66,7 @@
             '
                 <p>What is your username?</p>
                     <label for="username">Username:</label><br>
-                    <input type="text" id="username" name="username" title="Latin alphabet only." placeholder="Joesopher"><br>
+                    <input type="text" id="username" name="username" title="Latin alphabet only." minlength="1" maxlength="12" placeholder="Joesopher"><br>
                     <input type="submit" value="Submit">
                 </form>
             ';
