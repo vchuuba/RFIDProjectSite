@@ -54,6 +54,10 @@
                 $data = trim($data);
                 $data = stripslashes($data);
                 $data = htmlspecialchars($data);
+                if ($data == "")
+                {
+                    return "!";
+                }
                 return $data;
             }
         ?>
