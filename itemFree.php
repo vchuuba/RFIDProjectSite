@@ -25,11 +25,11 @@
 
             if ($_SERVER["REQUEST_METHOD"] == "POST")
             {
-                $sql = "SELECT productName, username FROM productList WHERE productName = '" . test_input($_POST["choice"]) . "'";
+                $sql = "SELECT productName, client FROM productList WHERE productName = '" . test_input($_POST["choice"]) . "'";
                 $result = $conn->query($sql);
                 while ($row = $result->fetch_assoc())
                 {
-                    $username = $row["username"];
+                    $username = $row["client"];
                 }
                 if (test_input($_POST["username"]) == $username)
                 {
