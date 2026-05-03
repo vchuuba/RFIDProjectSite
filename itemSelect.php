@@ -53,7 +53,7 @@
 
             echo '<form method="POST" action="itemReserved.php">';
             echo '<p>Which do you prefer?</p>';
-            while ($row = $result->fetch_assoc())
+            while ($result->fetch_assoc())
             {
                 echo
                 '
