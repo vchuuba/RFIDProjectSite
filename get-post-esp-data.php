@@ -55,9 +55,22 @@
             }
             else
             {
-                $sql = "INSERT INTO clientID (tag, username) VALUES ('" . test_input($_POST["cardID"]) . "', '" . test_input($_POST["username"]) . "')";
-                $conn->query($sql);
-                echo "Registered";
+                $sql = "SELECT username FROM clientID WHERE username = '" . test_input($_POST["username"]) . "'";
+                $result = $conn->query($sql);
+                while ($row = $result->fetch_assoc())
+                {
+                    $username = $row["username"];
+                }
+                if (test_input($_POST["username"]) == "")
+                {
+                    echo "!Duplicate!";
+                }
+                else
+                {
+                    $sql = "INSERT INTO clientID (tag, username) VALUES ('" . test_input($_POST["cardID"]) . "', '" . test_input($_POST["username"]) . "')";
+                    $conn->query($sql);
+                    echo "Registered";
+                }
             }
             $conn->close();
         }
