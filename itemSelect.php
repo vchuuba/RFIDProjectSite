@@ -26,31 +26,32 @@
             $sql = "SELECT id, cardID, productName, itemStatus FROM productList ORDER BY id DESC";
             $result = $conn->query($sql);
 
-            // echo
-            // '
-            //     <table cellspacing="5" cellpadding="5">
-            //         <tr> 
-            //             <td>Locker #</td> 
-            //             <td>Card ID</td>
-            //             <td>Product Name</td>
-            //             <td>Status</td>
-            //         </tr>
-            // ';
+            echo
+            '
+                <table cellspacing="5" cellpadding="5">
+                    <tr> 
+                        <td>Locker #</td> 
+                        <td>Card ID</td>
+                        <td>Product Name</td>
+                        <td>Status</td>
+                    </tr>
+            ';
             
-            // while ($row = $result->fetch_assoc())
-            // {
-            //     echo
-            //     '
-            //         <tr>
-            //             <td>' . $row["id"] . '</td>
-            //             <td>' . $row["cardID"] . '</td>
-            //             <td>' . $row["productName"] . '</td>
-            //             <td>' . $row["itemStatus"] . '</td>
-            //         </tr>
-            //     ';
-            // }
-            // echo '</table>';
+            while ($row = $result->fetch_assoc())
+            {
+                echo
+                '
+                    <tr>
+                        <td>' . $row["id"] . '</td>
+                        <td>' . $row["cardID"] . '</td>
+                        <td>' . $row["productName"] . '</td>
+                        <td>' . $row["itemStatus"] . '</td>
+                    </tr>
+                ';
+            }
+            echo '</table>';
 
+            $result = $conn->query($sql);
             echo '<form method="POST" action="itemReserved.php">';
             echo '<p>Which do you prefer?</p>';
             while ($row = $result->fetch_assoc())
