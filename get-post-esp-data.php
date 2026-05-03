@@ -92,11 +92,11 @@
             }
             if($status == "Available")
             {
-                $sql = "update productList set itemStatus = 'Reserved', client = '" . test_input($_POST["cardID"]) . "' WHERE id = '" . test_input($_POST["Locker"]) . "'";
+                $sql = "update productList set itemStatus = 'Taken', client = '" . test_input($_POST["cardID"]) . "' WHERE id = '" . test_input($_POST["Locker"]) . "'";
                 $conn->query($sql);
                     echo "Obtained";
             }
-            else if($status == "Reserved")
+            else if(($status == "Reserved")||($status == "Taken"))
             {
                 if($client == test_input($_POST["cardID"]))
                 {
