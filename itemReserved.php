@@ -35,6 +35,7 @@
                 {
                     $sql = "update productList set itemStatus = 'Reserved', client = '" . test_input($_POST["username"]) . "' WHERE productName = '" . test_input($_POST["choice"]) . "'";
                     $result = $conn->query($sql);
+                    echo mysqli_error($conn);
                     echo '<p>Item reserved successfully.</p>';
                 }
                 else
