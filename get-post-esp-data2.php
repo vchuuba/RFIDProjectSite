@@ -7,11 +7,12 @@
     // Your Database user password
     $password = "Shell111";
 
-$raw = file_get_contents('php://input');$data = json_decode($raw, true);
+$raw = file_get_contents('php://input');
+$data = json_decode($raw, true);
     
     if ($_SERVER["REQUEST_METHOD"] == "POST")
     {
-        if (test_input($data["keyword"]) == "MFRC522AUT")
+        if (($data["keyword"]) == "MFRC522AUT")
         { // client authentication
             // Create connection
             $conn = new mysqli($servername, $username, $password, $dbname);
@@ -20,13 +21,13 @@ $raw = file_get_contents('php://input');$data = json_decode($raw, true);
             {
                 die("Connection failed: " . $conn->connect_error);
             }
-            $sql = "SELECT tag FROM clientID WHERE tag = '" . test_input($data["cardID"]) . "'";
+            $sql = "SELECT tag FROM clientID WHERE tag = '" . ($data["cardID"]) . "'";
             $result = $conn->query($sql);
             while ($row = $result->fetch_assoc())
             {
                 $card = $row["tag"];
             }
-            if (test_input($data["cardID"]) == $card)
+            if (($data["cardID"]) == $card)
             {
                 echo "Authenticated";
             }
@@ -37,7 +38,7 @@ $raw = file_get_contents('php://input');$data = json_decode($raw, true);
             $conn->close();
         }
 
-        else if (test_input($data["keyword"]) == "MFRC522INF")
+        else if (($data["keyword"]) == "MFRC522INF")
         { // client authentication
             // Create connection
             $conn = new mysqli($servername, $username, $password, $dbname);
@@ -46,13 +47,13 @@ $raw = file_get_contents('php://input');$data = json_decode($raw, true);
             {
                 die("Connection failed: " . $conn->connect_error);
             }
-            $sql = "SELECT tag FROM clientID WHERE tag = '" . test_input($data["cardID"]) . "'";
+            $sql = "SELECT tag FROM clientID WHERE tag = '" . ($data["cardID"]) . "'";
             $result = $conn->query($sql);
             while ($row = $result->fetch_assoc())
             {
                 $card = $row["tag"];
             }
-            if (test_input($data["cardID"]) == $card)
+            if (($data["cardID"]) == $card)
             {
                 echo "Authenticated";
             }
@@ -63,7 +64,7 @@ $raw = file_get_contents('php://input');$data = json_decode($raw, true);
             $conn->close();
         }
 
-        else if (test_input($data["keyword"]) == "MFRC522REG")
+        else if (($data["keyword"]) == "MFRC522REG")
         { // client registration
             $conn = new mysqli($servername, $username, $password, $dbname);
             // Check connection
@@ -71,31 +72,31 @@ $raw = file_get_contents('php://input');$data = json_decode($raw, true);
             {
                 die("Connection failed: " . $conn->connect_error);
             }
-            $sql = "SELECT tag FROM clientID WHERE tag = '" . test_input($data["cardID"]) . "'";
+            $sql = "SELECT tag FROM clientID WHERE tag = '" . ($data["cardID"]) . "'";
             $result = $conn->query($sql);
             while ($row = $result->fetch_assoc())
             {
                 $card = $row["tag"];
             }
-            if (test_input($data["cardID"]) == $card)
+            if (($data["cardID"]) == $card)
             {
                 echo "Already registered";
             }
             else
             {
-                $sql = "SELECT username FROM clientID WHERE username = '" . test_input($data["username"]) . "'";
+                $sql = "SELECT username FROM clientID WHERE username = '" . ($data["username"]) . "'";
                 $result = $conn->query($sql);
                 while ($row = $result->fetch_assoc())
                 {
                     $username = $row["username"];
                 }
-                if (test_input($data["username"]) == $username)
+                if (($data["username"]) == $username)
                 {
                     echo "!Duplicate!";
                 }
                 else
                 {
-                    $sql = "INSERT INTO clientID (tag, username) VALUES ('" . test_input($data["cardID"]) . "', '" . test_input($data["username"]) . "')";
+                    $sql = "INSERT INTO clientID (tag, username) VALUES ('" . ($data["cardID"]) . "', '" . ($data["username"]) . "')";
                     $conn->query($sql);
                     echo "Registered";
                 }
@@ -103,7 +104,7 @@ $raw = file_get_contents('php://input');$data = json_decode($raw, true);
             $conn->close();
         }
 
-        else if (test_input($data["keyword"]) == "MFRC522SEL")
+        else if (($data["keyword"]) == "MFRC522SEL")
         { // item on taking
             $conn = new mysqli($servername, $username, $password, $dbname);
             // Check connection
@@ -112,14 +113,14 @@ $raw = file_get_contents('php://input');$data = json_decode($raw, true);
                 die("Connection failed: " . $conn->connect_error);
             }
 
-            $sql = "SELECT client, itemStatus FROM productList WHERE id = '" . test_input($data["Locker"]) . "'";
+            $sql = "SELECT client, itemStatus FROM productList WHERE id = '" . ($data["Locker"]) . "'";
             $result = $conn->query($sql);
             while ($row = $result->fetch_assoc())
             {
                 $client = $row["client"];
                 $status = $row["itemStatus"];
             }
-            $sql = "SELECT username FROM clientID WHERE tag = '" . test_input($data["cardID"]) . "'";
+            $sql = "SELECT username FROM clientID WHERE tag = '" . ($data["cardID"]) . "'";
             $result = $conn->query($sql);
             while ($row = $result->fetch_assoc())
             {
@@ -128,7 +129,7 @@ $raw = file_get_contents('php://input');$data = json_decode($raw, true);
 
             if($status == "Available")
             {
-                $sql = "update productList set itemStatus = 'Taken', client = '" . $username . "' WHERE id = '" . test_input($data["Locker"]) . "'";
+                $sql = "update productList set itemStatus = 'Taken', client = '" . $username . "' WHERE id = '" . ($data["Locker"]) . "'";
                 $conn->query($sql);
                 echo "Obtained";
             }
@@ -136,7 +137,7 @@ $raw = file_get_contents('php://input');$data = json_decode($raw, true);
             {
                 if($client == $username)
                 {
-                    $sql = "update productList set itemStatus = 'Available', client = 'None' WHERE id = '" . test_input($data["Locker"]) . "'";
+                    $sql = "update productList set itemStatus = 'Available', client = 'None' WHERE id = '" . ($data["Locker"]) . "'";
                     $conn->query($sql);
                     echo "Returned";
                 }
@@ -149,7 +150,7 @@ $raw = file_get_contents('php://input');$data = json_decode($raw, true);
             {
                 if ($client == $username)
                 {
-                    $sql = "update productList set itemStatus = 'Taken', client = '" . $username . "' WHERE id = '" . test_input($data["Locker"]) . "'";
+                    $sql = "update productList set itemStatus = 'Taken', client = '" . $username . "' WHERE id = '" . ($data["Locker"]) . "'";
                     $conn->query($sql);
                     echo "Obtained";
                 }
@@ -165,7 +166,7 @@ $raw = file_get_contents('php://input');$data = json_decode($raw, true);
             $conn->close();
         }
 
-        else if (test_input($data["keyword"]) == "PN532DET")
+        else if (($data["keyword"]) == "PN532DET")
         { // item detection
             $conn = new mysqli($servername, $username, $password, $dbname);
             // Check connection
@@ -173,13 +174,13 @@ $raw = file_get_contents('php://input');$data = json_decode($raw, true);
             {
                 die("Connection failed: " . $conn->connect_error);
             }
-            $sql = "SELECT id, cardID FROM productList WHERE id = '" . test_input($data["Locker"]) . "'";
+            $sql = "SELECT id, cardID FROM productList WHERE id = '" . ($data["Locker"]) . "'";
             $result = $conn->query($sql);
             while ($row = $result->fetch_assoc())
             {
                 $tag = $row["cardID"];
             }
-            if (test_input($data["cardID"]) == $tag)
+            if (($data["cardID"]) == $tag)
             {
                 echo "Detected";
             }
