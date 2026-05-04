@@ -47,8 +47,9 @@ $data = json_decode($raw, true);
             while ($row = $result->fetch_assoc())
             {
                 $rows[$row["id"]] = $row["client"];
+                $object = [ $row["id"] => $row["client"] ];
             }
-            echo json_encode($rows);
+            echo json_encode($object);
             $conn->close();
         }
 
