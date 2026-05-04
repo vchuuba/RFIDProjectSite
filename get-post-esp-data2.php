@@ -49,7 +49,7 @@ $data = json_decode($raw, true);
                 $rows[$row["id"]] = $row["client"];
                 $object = [ $row["id"] => $row["client"] ];
             }
-            echo json_encode($object);
+            echo json_encode($rows);
             $conn->close();
         }
 
