@@ -33,10 +33,23 @@
                 }
                 if (test_input($_POST["username"]) == $username)
                 {
-                    $sql = "update productList set itemStatus = 'Reserved', client = '" . test_input($_POST["username"]) . "' WHERE productName = '" . test_input($_POST["choice"]) . "'";
+                    $sql = "SELECT client FROM productList WHERE productName = '" . test_input($_POST["choice"]) . "'";
                     $result = $conn->query($sql);
-                    echo mysqli_error($conn);
-                    echo '<p>Item reserved successfully.</p>';
+                    while ($row = $result->fetch_assoc())
+                    {
+                        $client = $row["client"];
+                    }
+                    if ($client == "None")
+                    {
+                        $sql = "update productList set itemStatus = 'Reserved', client = '" . test_input($_POST["username"]) . "' WHERE productName = '" . test_input($_POST["choice"]) . "'";
+                        $result = $conn->query($sql);
+                        echo mysqli_error($conn);
+                        echo '<p>Item reserved successfully.</p>';
+                    }
+                    else
+                    {
+                        echo '<p>Item already reserved.</p>';
+                    }
                 }
                 else
                 {

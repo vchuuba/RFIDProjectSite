@@ -33,7 +33,7 @@
                 }
                 if (test_input($_POST["username"]) == $username)
                 {
-                    $sql = "update productList set itemStatus = 'Available', client = NULL WHERE productName = '" . test_input($_POST["choice"]) . "'";
+                    $sql = "update productList set itemStatus = 'Available', client = 'None' WHERE productName = '" . test_input($_POST["choice"]) . "'";
                     $result = $conn->query($sql);
                     echo mysqli_error($conn);
                     echo '<p>Item cancelled successfully.</p>';
