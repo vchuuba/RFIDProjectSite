@@ -46,8 +46,8 @@
             $result = $conn->query($sql);
             while ($row = $result->fetch_assoc())
             {
-                $rows[$row["id"]] = $row["client"];
-                $object = [ $row["id"] => $row["client"] ];
+                $rows[$row["ID"]] = $row["client"];
+                $object = [ $row["ID"] => $row["client"] ];
             }
             echo json_encode($rows);
             $conn->close();
