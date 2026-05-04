@@ -7,20 +7,20 @@
     // Your Database user password
     $password = "Shell111";
 
-$raw = file_get_contents('php://input');
-$data = json_decode($raw, true);
-    
+    $raw = file_get_contents('php://input');
+    $data = json_decode($raw, true);
+
+    $conn = new mysqli($servername, $username, $password, $dbname);
+    // Check connection
+    if ($conn->connect_error)
+    {
+        die("Connection failed: " . $conn->connect_error);
+    }
+
     if ($_SERVER["REQUEST_METHOD"] == "POST")
     {
         if (($data["keyword"]) == "MFRC522AUT")
         { // client authentication
-            // Create connection
-            $conn = new mysqli($servername, $username, $password, $dbname);
-            // Check connection
-            if ($conn->connect_error)
-            {
-                die("Connection failed: " . $conn->connect_error);
-            }
             $sql = "SELECT tag FROM clientID WHERE tag = '" . ($data["cardID"]) . "'";
             $result = $conn->query($sql);
             while ($row = $result->fetch_assoc())
@@ -42,12 +42,6 @@ $data = json_decode($raw, true);
 
         else if (($data["keyword"]) == "MFRC522INF")
         { // client authentication
-            $conn = new mysqli($servername, $username, $password, $dbname);
-            // Check connection
-            if ($conn->connect_error)
-            {
-                die("Connection failed: " . $conn->connect_error);
-            }
             $sql = "SELECT * FROM productList";
             $result = $conn->query($sql);
             while ($row = $result->fetch_assoc())
@@ -61,12 +55,6 @@ $data = json_decode($raw, true);
 
         else if (($data["keyword"]) == "MFRC522REG")
         { // client registration
-            $conn = new mysqli($servername, $username, $password, $dbname);
-            // Check connection
-            if ($conn->connect_error)
-            {
-                die("Connection failed: " . $conn->connect_error);
-            }
             $sql = "SELECT tag FROM clientID WHERE tag = '" . ($data["cardID"]) . "'";
             $result = $conn->query($sql);
             while ($row = $result->fetch_assoc())
@@ -101,13 +89,6 @@ $data = json_decode($raw, true);
 
         else if (($data["keyword"]) == "MFRC522SEL")
         { // item on taking
-            $conn = new mysqli($servername, $username, $password, $dbname);
-            // Check connection
-            if ($conn->connect_error)
-            {
-                die("Connection failed: " . $conn->connect_error);
-            }
-
             $sql = "SELECT client, itemStatus FROM productList WHERE id = '" . ($data["Locker"]) . "'";
             $result = $conn->query($sql);
             while ($row = $result->fetch_assoc())
@@ -163,12 +144,6 @@ $data = json_decode($raw, true);
 
         else if (($data["keyword"]) == "PN532DET")
         { // item detection
-            $conn = new mysqli($servername, $username, $password, $dbname);
-            // Check connection
-            if ($conn->connect_error)
-            {
-                die("Connection failed: " . $conn->connect_error);
-            }
             $sql = "SELECT id, cardID FROM productList WHERE id = '" . ($data["Locker"]) . "'";
             $result = $conn->query($sql);
             while ($row = $result->fetch_assoc())
