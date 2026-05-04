@@ -30,6 +30,8 @@ $data = json_decode($raw, true);
             if (($data["cardID"]) == $card)
             {
                 echo "Authenticated";
+            // $data = [ "tag" => "Authenticated" ];
+            // echo json_encode($data);
             }
             else
             {
@@ -40,27 +42,12 @@ $data = json_decode($raw, true);
 
         else if (($data["keyword"]) == "MFRC522INF")
         { // client authentication
-            // Create connection
-            $conn = new mysqli($servername, $username, $password, $dbname);
-            // Check connection
-            if ($conn->connect_error)
-            {
-                die("Connection failed: " . $conn->connect_error);
-            }
-            $sql = "SELECT tag FROM clientID WHERE tag = '" . ($data["cardID"]) . "'";
+            $sql = "SELECT id, username FROM productList";
             $result = $conn->query($sql);
-            while ($row = $result->fetch_assoc())
-            {
-                $card = $row["tag"];
+            while ($row = $result->fetch_assoc()) {
+            $rows[$row["id"]] = $row["username"];
             }
-            if (($data["cardID"]) == $card)
-            {
-                echo "Authenticated";
-            }
-            else
-            {
-                echo "Not authenticated";
-            }
+            echo json_encode($rows);
             $conn->close();
         }
 
