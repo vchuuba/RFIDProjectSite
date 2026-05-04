@@ -42,7 +42,7 @@ $data = json_decode($raw, true);
 
         else if (($data["keyword"]) == "MFRC522INF")
         { // client authentication
-            $sql = "SELECT id, client FROM productList";
+            $sql = "SELECT * FROM productList";
             $result = $conn->query($sql);
             while ($row = $result->fetch_assoc())
             {
