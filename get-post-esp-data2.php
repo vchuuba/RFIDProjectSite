@@ -47,7 +47,6 @@
             while ($row = $result->fetch_assoc())
             {
                 $rows[$row["ID"]] = $row["client"];
-                $object = [ $row["ID"] => $row["client"] ];
             }
             echo json_encode($rows);
             $conn->close();
@@ -158,6 +157,18 @@
             {
                 echo "Not detected";
             }
+            $conn->close();
+        }
+
+        else if (($data["keyword"]) == "PN532STA")
+        { // item reservation status check
+            $sql = "SELECT * FROM productList";
+            $result = $conn->query($sql);
+            while ($row = $result->fetch_assoc())
+            {
+                $rows[$row["ID"]] = $row["itemStatus"];
+            }
+            echo json_encode($rows);
             $conn->close();
         }
 
