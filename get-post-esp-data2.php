@@ -143,19 +143,28 @@
 
         else if (($data["keyword"]) == "PN532DET")
         { // item detection
-            $sql = "SELECT id, cardID FROM productList WHERE id = '" . ($data["Locker"]) . "'";
+            $sql = "SELECT id, cardID, itemStatus FROM productList WHERE id = '" . ($data["Locker"]) . "'";
             $result = $conn->query($sql);
             while ($row = $result->fetch_assoc())
             {
+                $id = $row["id"];
                 $tag = $row["cardID"];
+                $status = $row["itemStatus"];
             }
-            if (($data["cardID"]) == $tag)
+            if ($status == "Taken")
             {
-                echo "Detected";
+                echo "In use";
             }
             else
             {
-                echo "Not detected";
+                if (($data["cardID"]) == $tag)
+                {
+                    echo "Detected";
+                }
+                else
+                {
+                    echo "Not detected";
+                }
             }
             $conn->close();
         }
