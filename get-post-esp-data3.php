@@ -113,7 +113,7 @@
             {
                 if ($client == $username)
                 {
-                    $sql = "update productList set itemStatus = 'Taken', client = '" . $username . "' WHERE id = '" . ($data["Locker"]) . "'";
+                    $sql = "update productList set itemStatus = 'Taken', lockStatus = 1, client = '" . $username . "' WHERE id = '" . ($data["Locker"]) . "'";
                     $conn->query($sql);
                     echo "Obtained";
                 }
